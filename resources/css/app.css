@@ -1,0 +1,8 @@
+body {
+    background-color: rgba(245, 245, 245, 0.726);
+}
+.caja-login-container {
+    display: flex;
+    align-items: center;
+    height: 500px;
+}
