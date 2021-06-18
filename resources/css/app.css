@@ -6,3 +6,12 @@ body {
     align-items: center;
     height: 500px;
 }
+
+.container-image-task {
+    display: flex;
+    justify-content: center;
+}
+
+.container-image-task img {
+    width: 200px;
+}

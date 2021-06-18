@@ -13,7 +13,7 @@ function App() {
                 <Route exact path="/" component={Login}></Route>
                 <Layout>
                     <Route exact path="/home" component={Home}></Route>
-                    <Route exact path="/task" component={Task}></Route>
+                    <Route exact path="/task/:task_id?" component={Task}></Route>
                 </Layout>
             </Switch>
         </BrowserRouter>
