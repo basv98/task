@@ -14,7 +14,7 @@ class ListTask extends Component {
                         <div key={task.id} className="list-group" onClick={() => viewTask(task.id)}>
                             <div className="list-group-item list-group-item-action">
                                 <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">List group item heading</h5>
+                                    <h5 className="mb-1">{task.task_name}</h5>
                                     <small>3 days ago</small>
                                 </div>
                                 <p className="mb-1">{task.description}</p>

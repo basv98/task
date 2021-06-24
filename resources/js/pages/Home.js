@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import ListTask from "../components/ListTask.js";
 import Search from "../components/Search.js";
 import Helper from '../Helper.js';
+import Api from "../Api.js"
 import { Redirect } from "react-router-dom";
 
 class Home extends Component {
 
     state = {
-        tasks: [
-            { id: 1, description: "Esto es una prueba" },
-            { id: 2, description: "Esto es una prueba numero 2" },
-        ],
+        tasks: [],
         redirect: {
             handle: false,
             to: ""
@@ -18,7 +16,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // Helper.message("Hola mundo");
+        this.tasks();
     }
 
     deleteTask(task_id, event) {
@@ -26,11 +24,27 @@ class Home extends Component {
         Helper.message(`Se eliminó la tarea ${task_id}`);
     }
 
+    tasks = async () => {
+        const response = await Api.ajxGet("http://127.0.0.1/api/show", {}, "GET");
+        if (response.success) {
+            const tasks = response.data;
+            this.setState({
+                tasks: tasks
+            });
+        } else {
+            Helper.message("Ha ocurrido un error al cargar los datos", true);
+        }
+    }
+
     viewTask = (task_id) => {
+        this.redirect(`/task/${task_id}`);
+    }
+
+    redirect(url) {
         this.setState({
             redirect: {
                 handle: true,
-                to: `/task/${task_id}`
+                to: url
             }
         });
     }
@@ -43,6 +57,9 @@ class Home extends Component {
             <div className="my-5" >
                 <Search />
                 <ListTask deleteTask={this.deleteTask} viewTask={this.viewTask} tasks={this.state.tasks}></ListTask>
+                <button onClick={() => this.redirect("/task")} type="button" className="btn btn-primary my-4">
+                    New task<i className="fa fa-plus-square-o ml-2" aria-hidden="true"></i>
+                </button>
             </div>
         );
     }
