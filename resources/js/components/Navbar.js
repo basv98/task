@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Navbar extends Component {
+    
+    logout = () => {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+    }
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -10,13 +16,9 @@ class Navbar extends Component {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    {/* <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                        </ul>
-                    </div> */}
+                    <div className="d-flex justify-content-end">
+                        <i className="fa fa-sign-out text-white fa-2x mr-4 cursor-pointer" onClick={this.logout} title="Logout" aria-hidden="true"></i>
+                    </div>
                 </div>
             </nav>
         );

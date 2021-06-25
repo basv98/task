@@ -8,7 +8,7 @@ class EskeletonListTask extends Component {
             <Fragment>
                 {new Array(3).fill(1).map((_, i) => {
                     return (
-                        <div className="list-group mt-3">
+                        <div key={i} className="list-group mt-3">
                             <div className="list-group-item list-group-item-action">
                                 <Skeleton className="my-2" variant="text" height={30} />
                                 <Skeleton variant="rect" height={118} />

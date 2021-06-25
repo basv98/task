@@ -15,3 +15,7 @@ body {
 .container-image-task img {
     width: 200px;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

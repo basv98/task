@@ -7,6 +7,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Task from '../pages/Task';
 
 function App() {
+   
     return (
         <BrowserRouter>
             <Switch>

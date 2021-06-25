@@ -2551,7 +2551,7 @@ var EskeletonListTask = /*#__PURE__*/function (_Component) {
                 height: 118
               })]
             })
-          });
+          }, i);
         })
       });
     }
@@ -2765,6 +2765,10 @@ var Layout = /*#__PURE__*/function (_Component) {
   _createClass(Layout, [{
     key: "render",
     value: function render() {
+      if (!localStorage.getItem("token")) {
+        return window.location.href = "/";
+      }
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Navbar__WEBPACK_IMPORTED_MODULE_1__.default, {
           menu: ""
@@ -2929,6 +2933,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2940,9 +2946,22 @@ var Navbar = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(Navbar);
 
   function Navbar() {
+    var _this;
+
     _classCallCheck(this, Navbar);
 
-    return _super.apply(this, arguments);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "logout", function () {
+      localStorage.removeItem("token");
+      window.location.href = "/";
+    });
+
+    return _this;
   }
 
   _createClass(Navbar, [{
@@ -2966,6 +2985,14 @@ var Navbar = /*#__PURE__*/function (_Component) {
             "aria-label": "Toggle navigation",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
               className: "navbar-toggler-icon"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "d-flex justify-content-end",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+              className: "fa fa-sign-out text-white fa-2x mr-4 cursor-pointer",
+              onClick: this.logout,
+              title: "Logout",
+              "aria-hidden": "true"
             })
           })]
         })
@@ -3782,7 +3809,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n    background-color: rgba(245, 245, 245, 0.726);\n}\n.caja-login-container {\n    display: flex;\n    align-items: center;\n    height: 500px;\n}\n\n.container-image-task {\n    display: flex;\n    justify-content: center;\n}\n\n.container-image-task img {\n    width: 200px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n    background-color: rgba(245, 245, 245, 0.726);\n}\n.caja-login-container {\n    display: flex;\n    align-items: center;\n    height: 500px;\n}\n\n.container-image-task {\n    display: flex;\n    justify-content: center;\n}\n\n.container-image-task img {\n    width: 200px;\n}\n\n.cursor-pointer {\n    cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
