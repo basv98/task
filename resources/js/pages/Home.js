@@ -19,9 +19,17 @@ class Home extends Component {
         this.tasks();
     }
 
-    deleteTask(task_id, event) {
+    deleteTask = async (task_id, event) => {
         event.stopPropagation();
-        Helper.message(`Se eliminó la tarea ${task_id}`);
+        const response = await Api.ajx('http://127.0.0.1/api/delete', {
+            task_id
+        });
+        if (response.success) {
+            this.tasks();
+            Helper.message(`Se eliminó la tarea ${task_id}`);
+        } else {
+            Helper.message(response.messagge, true);
+        }
     }
 
     tasks = async () => {

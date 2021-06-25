@@ -34,7 +34,7 @@ class TaskController extends Controller
     {
         $task = Tasks::taskByUserAndId($request->task_id);
         if (count($task)) {
-            return responseJson("Ok", true, $task[0]);
+            return responseJson("Ok", true, TaskResource::collection($task)[0]);
         }
         return responseJson("Task not found", false);
     }

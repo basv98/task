@@ -385,6 +385,7 @@ var FormTask = /*#__PURE__*/function (_Component) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
               onChange: this.props.onChange,
               type: "text",
+              value: this.props.formValues.taskName,
               className: "form-control",
               id: "taskName",
               placeholder: "title",
@@ -397,6 +398,7 @@ var FormTask = /*#__PURE__*/function (_Component) {
               children: "Description task"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("textarea", {
               onChange: this.props.onChange,
+              value: this.props.formValues.descriptionTask,
               className: "form-control",
               id: "descriptionTask",
               rows: "3",
@@ -412,6 +414,7 @@ var FormTask = /*#__PURE__*/function (_Component) {
                 children: "Date"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
                 onChange: this.props.onChange,
+                value: this.props.formValues.date,
                 className: "form-control",
                 type: "date",
                 id: "date",
@@ -426,6 +429,7 @@ var FormTask = /*#__PURE__*/function (_Component) {
                 children: "Time"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
                 onChange: this.props.onChange,
+                value: this.props.formValues.time,
                 className: "form-control",
                 type: "time",
                 id: "time",
@@ -887,17 +891,54 @@ var Home = /*#__PURE__*/function (_Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "tasks", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    _defineProperty(_assertThisInitialized(_this), "deleteTask", /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(task_id, event) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.stopPropagation();
+                _context.next = 3;
+                return _Api_js__WEBPACK_IMPORTED_MODULE_5__.default.ajx('http://127.0.0.1/api/delete', {
+                  task_id: task_id
+                });
+
+              case 3:
+                response = _context.sent;
+
+                if (response.success) {
+                  _this.tasks();
+
+                  _Helper_js__WEBPACK_IMPORTED_MODULE_4__.default.message("Se elimin\xF3 la tarea ".concat(task_id));
+                } else {
+                  _Helper_js__WEBPACK_IMPORTED_MODULE_4__.default.message(response.messagge, true);
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "tasks", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var response, tasks;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.next = 2;
+              _context2.next = 2;
               return _Api_js__WEBPACK_IMPORTED_MODULE_5__.default.ajxGet("http://127.0.0.1/api/show", {}, "GET");
 
             case 2:
-              response = _context.sent;
+              response = _context2.sent;
 
               if (response.success) {
                 tasks = response.data;
@@ -911,10 +952,10 @@ var Home = /*#__PURE__*/function (_Component) {
 
             case 4:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     })));
 
     _defineProperty(_assertThisInitialized(_this), "viewTask", function (task_id) {
@@ -928,12 +969,6 @@ var Home = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.tasks();
-    }
-  }, {
-    key: "deleteTask",
-    value: function deleteTask(task_id, event) {
-      event.stopPropagation();
-      _Helper_js__WEBPACK_IMPORTED_MODULE_4__.default.message("Se elimin\xF3 la tarea ".concat(task_id));
     }
   }, {
     key: "redirect",
@@ -1195,15 +1230,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1262,27 +1297,77 @@ var Task = /*#__PURE__*/function (_Component) {
       redirectHome: false
     });
 
+    _defineProperty(_assertThisInitialized(_this), "chargeTask", /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(task_id) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _Api_js__WEBPACK_IMPORTED_MODULE_3__.default.ajxGet("http://127.0.0.1/api/task?task_id=".concat(task_id));
+
+              case 2:
+                response = _context.sent;
+
+                if (response.success) {
+                  _this.setState({
+                    form: {
+                      taskName: response.data.task_name,
+                      descriptionTask: response.data.description,
+                      date: response.data.date_programation,
+                      time: response.data.hour_programation
+                    }
+                  });
+                } else {
+                  _Helper_js__WEBPACK_IMPORTED_MODULE_2__.default.message(response.messagge, true);
+                }
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+
     _defineProperty(_assertThisInitialized(_this), "handleChanfe", function (event) {
       _this.setState({
         form: _objectSpread(_objectSpread({}, _this.state.form), {}, _defineProperty({}, event.target.id, event.target.value))
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "saveTask", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    _defineProperty(_assertThisInitialized(_this), "saveTask", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var url, task_id, request, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.next = 2;
-              return _Api_js__WEBPACK_IMPORTED_MODULE_3__.default.ajx('http://127.0.0.1/api/save', {
+              url = "http://127.0.0.1/api/save";
+              task_id = _this.props.match.params.task_id;
+              request = {
                 task_name: _this.state.form.taskName,
                 task_description: _this.state.form.descriptionTask,
-                date_programation: "".concat(_this.state.form.date)
-              });
+                date_programation: "".concat(_this.state.form.date, " ").concat(_this.state.form.time)
+              };
 
-            case 2:
-              response = _context.sent;
+              if (task_id) {
+                url = "http://127.0.0.1/api/update";
+                request = _objectSpread(_objectSpread({}, request), {}, {
+                  task_id: task_id
+                });
+              }
+
+              _context2.next = 6;
+              return _Api_js__WEBPACK_IMPORTED_MODULE_3__.default.ajx(url, request);
+
+            case 6:
+              response = _context2.sent;
 
               if (response.success) {
                 _this.setState({
@@ -1292,12 +1377,12 @@ var Task = /*#__PURE__*/function (_Component) {
                 _Helper_js__WEBPACK_IMPORTED_MODULE_2__.default.message(response.messagge, true);
               }
 
-            case 4:
+            case 8:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     })));
 
     return _this;
@@ -1305,7 +1390,10 @@ var Task = /*#__PURE__*/function (_Component) {
 
   _createClass(Task, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var task_id = this.props.match.params.task_id;
+      task_id && this.chargeTask(task_id);
+    }
   }, {
     key: "render",
     value: function render() {
@@ -1324,6 +1412,7 @@ var Task = /*#__PURE__*/function (_Component) {
             alt: "logo"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_FormTask_js__WEBPACK_IMPORTED_MODULE_4__.default, {
+          formValues: this.state.form,
           onChange: this.handleChanfe,
           saveTask: this.saveTask
         })]

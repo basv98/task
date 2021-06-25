@@ -19,6 +19,7 @@ class TaskResource extends JsonResource
             "task_name" => $this->task_name,
             "description" => $this->task_description,
             "date_programation" => date("Y-m-d", strtotime($this->date_programation)),
+            "hour_programation" => date("h:i", strtotime($this->date_programation)),
             "user" => $this->user->name
         ];
     }

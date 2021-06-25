@@ -27,7 +27,7 @@ class RequestUpdateTask extends FormRequest
             "task_id" => ["required", "integer"],
             "task_name" => ["required", "string"],
             "task_description" => ["required", "string"],
-            "date_programation" => ["required", "date_format:Y-m-d"],
+            "date_programation" => ["required", "date_format:Y-m-d G:i"],
         ];
     }
 }

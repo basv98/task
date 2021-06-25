@@ -18,6 +18,24 @@ class Task extends Component {
     }
 
     componentDidMount() {
+        let task_id = this.props.match.params.task_id;
+        task_id && this.chargeTask(task_id);
+    }
+
+    chargeTask = async (task_id) => {
+        const response = await Api.ajxGet(`http://127.0.0.1/api/task?task_id=${task_id}`);
+        if (response.success) {
+            this.setState({
+                form: {
+                    taskName: response.data.task_name,
+                    descriptionTask: response.data.description,
+                    date: response.data.date_programation,
+                    time: response.data.hour_programation,
+                }
+            });
+        } else {
+            Helper.message(response.messagge, true);
+        }
     }
 
     handleChanfe = (event) => {
@@ -30,11 +48,23 @@ class Task extends Component {
     }
 
     saveTask = async () => {
-        const response = await Api.ajx('http://127.0.0.1/api/save', {
+        let url = "http://127.0.0.1/api/save";
+        let task_id = this.props.match.params.task_id;
+        let request = {
             task_name: this.state.form.taskName,
             task_description: this.state.form.descriptionTask,
-            date_programation: `${this.state.form.date}`,
-        });
+            date_programation: `${this.state.form.date} ${this.state.form.time}`,
+        };
+
+        if (task_id) {
+            url = "http://127.0.0.1/api/update"
+            request = {
+                ...request,
+                task_id
+            }
+        }
+        
+        const response = await Api.ajx(url, request);
 
         if (response.success) {
             this.setState({
@@ -54,7 +84,7 @@ class Task extends Component {
                 <div className="container-image-task my-5">
                     <img className="d-block" src={imageTask} alt="logo"></img>
                 </div>
-                <FormTask onChange={this.handleChanfe} saveTask={this.saveTask} ></FormTask>
+                <FormTask formValues={this.state.form} onChange={this.handleChanfe} saveTask={this.saveTask} ></FormTask>
             </Fragment>
         );
     }
