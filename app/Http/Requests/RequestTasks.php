@@ -26,7 +26,7 @@ class RequestTasks extends FormRequest
         return [
             "task_name" => ["required", "string"],
             "task_description" => ["required", "string"],
-            "date_programation" => ["required", "date_format:Y-m-d h:i"],
+            "date_programation" => ["required", "date_format:Y-m-d G:i"],
         ];
     }
 }

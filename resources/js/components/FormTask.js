@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import EskeletonFormTask from "./EskeletonFormTask.js";
 
 class FormTask extends Component {
     render() {
+        if (this.props.isLoading) {
+            return <EskeletonFormTask />;
+        }
         return (
             <div className="my-5" >
                 <form>

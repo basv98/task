@@ -12,7 +12,8 @@ class Home extends Component {
         redirect: {
             handle: false,
             to: ""
-        }
+        },
+        isLoading: true
     }
 
     componentDidMount() {
@@ -37,7 +38,8 @@ class Home extends Component {
         if (response.success) {
             const tasks = response.data;
             this.setState({
-                tasks: tasks
+                tasks: tasks,
+                isLoading: false
             });
         } else {
             Helper.message("Ha ocurrido un error al cargar los datos", true);
@@ -64,7 +66,7 @@ class Home extends Component {
         return (
             <div className="my-5" >
                 <Search />
-                <ListTask deleteTask={this.deleteTask} viewTask={this.viewTask} tasks={this.state.tasks}></ListTask>
+                <ListTask isLoading={this.state.isLoading} deleteTask={this.deleteTask} viewTask={this.viewTask} tasks={this.state.tasks}></ListTask>
                 <button onClick={() => this.redirect("/task")} type="button" className="btn btn-primary my-4">
                     New task<i className="fa fa-plus-square-o ml-2" aria-hidden="true"></i>
                 </button>

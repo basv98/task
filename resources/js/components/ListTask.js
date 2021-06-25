@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import EskeletonListTask from "./EskeletonListTask.js";
 
 class ListTask extends Component {
 
@@ -7,11 +8,15 @@ class ListTask extends Component {
         const deleteTask = this.props.deleteTask;
         const viewTask = this.props.viewTask;
 
+        if (this.props.isLoading) {
+            return <EskeletonListTask></EskeletonListTask>;
+        }
+
         return (
             <Fragment>
                 {tasks.map(function (task) {
                     return (
-                        <div key={task.id} className="list-group" onClick={() => viewTask(task.id)}>
+                        <div key={task.id} className="list-group mt-3" onClick={() => viewTask(task.id)}>
                             <div className="list-group-item list-group-item-action">
                                 <div className="d-flex w-100 justify-content-between">
                                     <h5 className="mb-1">{task.task_name}</h5>

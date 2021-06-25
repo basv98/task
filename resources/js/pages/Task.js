@@ -14,12 +14,19 @@ class Task extends Component {
             date: "",
             time: "",
         },
-        redirectHome: false
+        redirectHome: false,
+        isLoading: true
     }
 
     componentDidMount() {
         let task_id = this.props.match.params.task_id;
-        task_id && this.chargeTask(task_id);
+        if (task_id) {
+            this.chargeTask(task_id);
+        } else {
+            this.setState({
+                isLoading: false
+            });
+        }
     }
 
     chargeTask = async (task_id) => {
@@ -31,7 +38,8 @@ class Task extends Component {
                     descriptionTask: response.data.description,
                     date: response.data.date_programation,
                     time: response.data.hour_programation,
-                }
+                },
+                isLoading: false
             });
         } else {
             Helper.message(response.messagge, true);
@@ -63,7 +71,7 @@ class Task extends Component {
                 task_id
             }
         }
-        
+
         const response = await Api.ajx(url, request);
 
         if (response.success) {
@@ -84,7 +92,7 @@ class Task extends Component {
                 <div className="container-image-task my-5">
                     <img className="d-block" src={imageTask} alt="logo"></img>
                 </div>
-                <FormTask formValues={this.state.form} onChange={this.handleChanfe} saveTask={this.saveTask} ></FormTask>
+                <FormTask isLoading={this.state.isLoading} formValues={this.state.form} onChange={this.handleChanfe} saveTask={this.saveTask} ></FormTask>
             </Fragment>
         );
     }
